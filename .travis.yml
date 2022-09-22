@@ -1,0 +1,35 @@
+language: node_js
+node_js: 
+  - 13
+
+services:
+  - docker 
+
+install:
+  - echo "nothing needs installation"
+
+before_script:
+  - echo "no tests"
+  - docker system prune --all --force  # Well, just in case
+
+script: 
+  - docker --version
+  - docker build -t udagram-api-feed ./udagram-api-feed
+  - docker tag udagram-api-feed remi-cm/udagram-api-feed
+
+  - docker build -t udagram-api-user ./udagram-api-user
+  - docker tag udagram-api-user remi-cm/udagram-api-user
+
+  - docker build -t udagram-frontend ./udagram-frontend
+  - docker tag udagram-frontend remi-cmr/udagram-frontend
+
+  - docker build -t reverseproxy ./udagram-reverseproxy
+  - docker tag reverseproxy remi-cm/reverseproxy
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push remi-cm/udagram-api-feed
+  - docker push remi-cm/udagram-api-user
+  - docker push remi-cm/udagram-frontend:local
+  - docker push remi-cm/reverseproxy
+  - echo "Images push done"
