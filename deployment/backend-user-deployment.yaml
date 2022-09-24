@@ -33,3 +33,11 @@ spec:
                 name: aws-secret
             - configMapRef:
                 name: configmap
+                
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m" 
