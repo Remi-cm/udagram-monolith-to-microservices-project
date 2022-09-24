@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: reverseproxy
+
+  labels:
+    app: reverseproxy
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: reverseproxy
+
+  template:
+    metadata:
+      labels:
+        app: reverseproxy
+
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: reverseproxy
+          image: docker.io/remidoragon/reverseproxy:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+            
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m" 

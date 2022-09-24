@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+data:
+  POSTGRES_HOST: udagram-db.cgirk8cnef01.us-east-1.rds.amazonaws.com
+  POSTGRES_DB: postgres
+  AWS_BUCKET: udagram-11527339487-prod
+  AWS_REGION: us-east-1
+  JWT_SECRET: testing
+  AWS_PROFILE: iam1
+  URL: http://localhost:8100
